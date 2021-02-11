@@ -37,8 +37,8 @@ public class CSVReader implements Runnable {
                 String[] values = st.trim().split(CSVFileHandler.SEPARATOR);
                 int index = 0;
                 for (String value : values) {
-                        Set<String> valuesFromData = data.get(indexKeysData.get(index++));
-                        valuesFromData.add(value);
+                    Set<String> valuesFromData = data.get(indexKeysData.get(index++));
+                    valuesFromData.add(value);
                 }
             }
         } catch (IOException e) {

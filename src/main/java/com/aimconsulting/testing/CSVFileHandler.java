@@ -12,7 +12,6 @@ public class CSVFileHandler {
         HashMap<String, Set<String>> data = new HashMap<>();
 
         List<Thread> threadsReaders = new ArrayList<>();
-        List<Thread> threadsWriters = new ArrayList<>();
 
         for (String filename : args) {
             Thread thread = new Thread(new CSVReader(filename, data));
@@ -20,24 +19,18 @@ public class CSVFileHandler {
             thread.start();
         }
 
-        waitForThreadsToEnd(threadsReaders);
-
-        for (String filename : data.keySet()) {
-            Thread thread = new Thread(new CSVWriter(filename, data.get(filename)));
-            threadsWriters.add(thread);
-            thread.start();
-        }
-
-        waitForThreadsToEnd(threadsWriters);
-    }
-
-    private static void waitForThreadsToEnd(List<Thread> threads) {
-        for (Thread thread : threads) {
+        for (Thread thread : threadsReaders) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
+
+        for (String filename : data.keySet()) {
+            Thread thread = new Thread(new CSVWriter(filename, data.get(filename)));
+            thread.start();
+        }
+
     }
 }
