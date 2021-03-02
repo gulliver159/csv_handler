@@ -10,27 +10,41 @@ public class CSVFileHandler {
 
     public static void main(String[] args) {
         HashMap<String, Set<String>> data = new HashMap<>();
+        HashMap<String, String> files = new HashMap<>();
 
         List<Thread> threadsReaders = new ArrayList<>();
+        List<Thread> threadsParsing = new ArrayList<>();
 
         for (String filename : args) {
-            Thread thread = new Thread(new CSVReader(filename, data));
+            Thread thread = new Thread(new CSVReader(filename, files));
             threadsReaders.add(thread);
             thread.start();
         }
 
-        for (Thread thread : threadsReaders) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        waitThreads(threadsReaders);
+
+        for (String fileBody : files.values()) {
+            Thread thread = new Thread(new CSVParsing(fileBody, data));
+            threadsParsing.add(thread);
+            thread.start();
         }
+
+        waitThreads(threadsParsing);
 
         for (String filename : data.keySet()) {
             Thread thread = new Thread(new CSVWriter(filename, data.get(filename)));
             thread.start();
         }
 
+    }
+
+    private static void waitThreads(List<Thread> threads) {
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

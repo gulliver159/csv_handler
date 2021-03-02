@@ -3,44 +3,26 @@ package com.aimconsulting.testing;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class CSVReader implements Runnable {
     private final String filename;
-    private final HashMap<String, Set<String>> data;
+    private final HashMap<String, String> files;
 
-    public CSVReader(String filename, HashMap<String, Set<String>> data) {
+    public CSVReader(String filename, HashMap<String, String> files) {
         this.filename = filename;
-        this.data = data;
+        this.files = files;
     }
 
     public void run() {
-        HashMap<Integer, String> indexKeysData = new HashMap<>();
-        try(BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String st;
-            if ((st = br.readLine()) != null) {
-                String[] keys = st.trim().split(CSVFileHandler.SEPARATOR);
-                int index = 0;
-                for (String key : keys) {
-                    synchronized (data) {
-                        if (!data.containsKey(key)) {
-                            data.put(key, new HashSet<>());
-                        }
-                    }
-                    indexKeysData.put(index++, key);
-                }
-            }
-
-            while ((st = br.readLine()) != null) {
-                String[] values = st.trim().split(CSVFileHandler.SEPARATOR);
-                int index = 0;
-                for (String value : values) {
-                    Set<String> valuesFromData = data.get(indexKeysData.get(index++));
-                    valuesFromData.add(value);
-                }
-            }
+        try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+            files.put(filename, lines.collect(Collectors.joining("\n")));
         } catch (IOException e) {
             e.printStackTrace();
         }
