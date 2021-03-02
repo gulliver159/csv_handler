@@ -1,8 +1,5 @@
 package com.aimconsulting.testing;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,6 +14,25 @@ public class CSVParsing implements Runnable {
     }
 
     public void run() {
+        HashMap<Integer, String> indexKeysData = new HashMap<>();
 
+        String[] keysAndValues = fileBody.split("\n", 2);
+        String[] keys = keysAndValues[0].split(CSVFileHandler.SEPARATOR);
+        int index = 0;
+        for (String key : keys) {
+            synchronized (data) {
+                if (!data.containsKey(key)) {
+                    data.put(key, new HashSet<>());
+                }
+            }
+            indexKeysData.put(index++, key);
+        }
+
+        index = 0;
+        String[] values = keysAndValues[1].replace("\n", "").split(CSVFileHandler.SEPARATOR);
+        for (String value : values) {
+            Set<String> valuesFromData = data.get(indexKeysData.get(index++ % 3));
+            valuesFromData.add(value);
+        }
     }
 }
