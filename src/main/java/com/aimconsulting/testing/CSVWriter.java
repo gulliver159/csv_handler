@@ -13,8 +13,8 @@ public class CSVWriter implements Runnable {
     }
 
     public void run() {
-        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename))) {
-            bw.write(String.join(CSVFileHandler.SEPARATOR, fileContent) + CSVFileHandler.SEPARATOR);
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(filename, true))) {
+            bw.write(String.join(Main.SEPARATOR, fileContent) + Main.SEPARATOR);
         } catch (IOException e) {
             e.printStackTrace();
         }
