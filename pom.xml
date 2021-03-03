@@ -39,7 +39,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>com.aimconsulting.testing.CSVFileHandler</mainClass>
+                            <mainClass>com.aimconsulting.testing.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
