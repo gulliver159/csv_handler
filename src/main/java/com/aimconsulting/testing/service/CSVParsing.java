@@ -1,4 +1,6 @@
-package com.aimconsulting.testing;
+package com.aimconsulting.testing.service;
+
+import com.aimconsulting.testing.Main;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -11,6 +13,10 @@ public class CSVParsing  {
         HashMap<Integer, String> indexKeysData = new HashMap<>();
 
         String[] keysAndValues = fileBody.split("\n", 2);
+        if (keysAndValues.length == 0) {
+            return data;
+        }
+
         String[] keys = keysAndValues[0].split(Main.SEPARATOR);
         int index = 0;
         for (String key : keys) {
@@ -20,6 +26,9 @@ public class CSVParsing  {
             indexKeysData.put(index++, key);
         }
 
+        if (keysAndValues.length == 1) {
+            return data;
+        }
         index = 0;
         String[] values = keysAndValues[1].replace("\n", "").split(Main.SEPARATOR);
         for (String value : values) {
