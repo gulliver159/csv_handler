@@ -1,11 +1,13 @@
 package com.aimconsulting.testing.service;
 
 import com.aimconsulting.testing.Main;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class CSVParsing  {
 
     public HashMap<String, Set<String>> parse(String fileBody) {
