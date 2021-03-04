@@ -4,17 +4,17 @@ import java.util.List;
 
 public class ResultDtoResponse {
 
-    private List<FileInfoDtoResponse> resultList;
+    private List<ResultInfoDtoResponse> resultList;
 
-    public ResultDtoResponse(List<FileInfoDtoResponse> resultList) {
+    public ResultDtoResponse(List<ResultInfoDtoResponse> resultList) {
         this.resultList = resultList;
     }
 
-    public List<FileInfoDtoResponse> getResultList() {
+    public List<ResultInfoDtoResponse> getResultList() {
         return resultList;
     }
 
-    public void setResultList(List<FileInfoDtoResponse> resultList) {
+    public void setResultList(List<ResultInfoDtoResponse> resultList) {
         this.resultList = resultList;
     }
 }

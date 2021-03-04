@@ -1,10 +1,10 @@
 package com.aimconsulting.testing.dto;
 
-public class FileInfoDtoResponse {
+public class ResultInfoDtoResponse {
     private String name;
     private String content;
 
-    public FileInfoDtoResponse(String name, String content) {
+    public ResultInfoDtoResponse(String name, String content) {
         this.name = name;
         this.content = content;
     }
