@@ -1,5 +1,6 @@
 package com.aimconsulting.testing.service;
 
+import com.aimconsulting.testing.dao.Writer;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultInfoDtoResponse;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
@@ -15,17 +16,21 @@ import java.util.Set;
 public class ProcessingService {
 
     @Autowired
-    private final Parser parsing;
+    private final Parser parser;
+    @Autowired
+    private final Writer writer;
 
-    public ProcessingService(Parser parsing) {
-        this.parsing = parsing;
+    public ProcessingService(Parser parser, Writer writer) {
+        this.parser = parser;
+        this.writer = writer;
     }
 
     public ResultDtoResponse parse(ContentDtoRequest contentDtoRequest) {
         String requestContent = contentDtoRequest.getContent();
         List<ResultInfoDtoResponse> resultList = new ArrayList<>();
 
-        HashMap<String, Set<String>> data =  parsing.parse(requestContent);
+        HashMap<String, Set<String>> data =  parser.parse(requestContent);
+        // вызов метода writer
 
         for (String name : data.keySet()) {
             String responseContent = String.join(Parser.SEPARATOR, data.get(name)) + Parser.SEPARATOR;
