@@ -4,15 +4,17 @@ import com.aimconsulting.testing.dao.Writer;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultInfoDtoResponse;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
+import com.aimconsulting.testing.model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-@org.springframework.stereotype.Service
+@Service
 public class ProcessingService {
 
     @Autowired
@@ -30,12 +32,13 @@ public class ProcessingService {
         List<ResultInfoDtoResponse> resultList = new ArrayList<>();
 
         HashMap<String, Set<String>> data =  parser.parse(requestContent);
-        // вызов метода writer
 
         for (String name : data.keySet()) {
             String responseContent = String.join(Parser.SEPARATOR, data.get(name)) + Parser.SEPARATOR;
+            writer.createResult(new Result(name, responseContent));
             resultList.add(new ResultInfoDtoResponse(name, responseContent));
         }
+
         return new ResultDtoResponse(resultList);
     }
 
