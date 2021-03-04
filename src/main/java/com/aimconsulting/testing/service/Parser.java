@@ -7,7 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-public class CSVParsing  {
+public class Parser {
 
     public static final String SEPARATOR = ";";
 

@@ -11,13 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
-@Service
-public class CSVService {
+@org.springframework.stereotype.Service
+public class ProcessingService {
 
     @Autowired
-    private final CSVParsing parsing;
+    private final Parser parsing;
 
-    public CSVService(CSVParsing parsing) {
+    public ProcessingService(Parser parsing) {
         this.parsing = parsing;
     }
 
@@ -28,7 +28,7 @@ public class CSVService {
         HashMap<String, Set<String>> data =  parsing.parse(requestContent);
 
         for (String name : data.keySet()) {
-            String responseContent = String.join(CSVParsing.SEPARATOR, data.get(name)) + CSVParsing.SEPARATOR;
+            String responseContent = String.join(Parser.SEPARATOR, data.get(name)) + Parser.SEPARATOR;
             resultList.add(new ResultInfoDtoResponse(name, responseContent));
         }
         return new ResultDtoResponse(resultList);
