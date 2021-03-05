@@ -1,6 +1,6 @@
 package com.aimconsulting.testing.service;
 
-import com.aimconsulting.testing.dao.Writer;
+import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
@@ -12,20 +12,18 @@ import java.util.List;
 public class ProcessingService {
 
     private final Parser parser;
-    private final Writer writer;
+    private final ResultWriter resultWriter;
 
-    public ProcessingService(Parser parser, Writer writer) {
+    public ProcessingService(Parser parser, ResultWriter resultWriter) {
         this.parser = parser;
-        this.writer = writer;
+        this.resultWriter = resultWriter;
     }
 
     public ResultDtoResponse parse(ContentDtoRequest contentDtoRequest) {
         String requestContent = contentDtoRequest.getContent();
         List<Result> resultList =  parser.parse(requestContent);
 
-        for (Result result : resultList) {
-            writer.createResult(result);
-        }
+        resultWriter.createResults(resultList);
 
         return new ResultDtoResponse(resultList);
     }
