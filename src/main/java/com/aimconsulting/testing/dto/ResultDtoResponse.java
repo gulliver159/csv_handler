@@ -1,20 +1,22 @@
 package com.aimconsulting.testing.dto;
 
+import com.aimconsulting.testing.model.Result;
+
 import java.util.List;
 
 public class ResultDtoResponse {
 
-    private List<ResultInfoDtoResponse> resultList;
+    private List<Result> resultList;
 
-    public ResultDtoResponse(List<ResultInfoDtoResponse> resultList) {
+    public ResultDtoResponse(List<Result> resultList) {
         this.resultList = resultList;
     }
 
-    public List<ResultInfoDtoResponse> getResultList() {
+    public List<Result> getResultList() {
         return resultList;
     }
 
-    public void setResultList(List<ResultInfoDtoResponse> resultList) {
+    public void setResultList(List<Result> resultList) {
         this.resultList = resultList;
     }
 }

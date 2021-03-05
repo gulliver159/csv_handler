@@ -1,23 +1,22 @@
 package com.aimconsulting.testing.service;
 
+import com.aimconsulting.testing.model.Result;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class Parser {
 
     public static final String SEPARATOR = ";";
 
-    public HashMap<String, Set<String>> parse(String content) {
+    public List<Result> parse(String content) {
         HashMap<String, Set<String>> data = new HashMap<>();
         HashMap<Integer, String> indexKeysData = new HashMap<>();
 
         String[] keysAndValues = content.split("\n", 2);
         if (keysAndValues.length == 0) {
-            return data;
+            return createAnswer(data);
         }
 
         String[] keys = keysAndValues[0].split(SEPARATOR);
@@ -30,7 +29,7 @@ public class Parser {
         }
 
         if (keysAndValues.length == 1) {
-            return data;
+            return createAnswer(data);
         }
         index = 0;
         String[] values = keysAndValues[1].replace("\n", "").split(SEPARATOR);
@@ -38,6 +37,16 @@ public class Parser {
             Set<String> valuesFromData = data.get(indexKeysData.get(index++ % 3));
             valuesFromData.add(value);
         }
-        return data;
+
+        return createAnswer(data);
+    }
+
+    private List<Result> createAnswer(HashMap<String, Set<String>> data) {
+        List<Result> resultList = new ArrayList<>();
+        for (String name : data.keySet()) {
+            String responseContent = String.join(Parser.SEPARATOR, data.get(name)) + Parser.SEPARATOR;
+            resultList.add(new Result(name, responseContent));
+        }
+        return resultList;
     }
 }
