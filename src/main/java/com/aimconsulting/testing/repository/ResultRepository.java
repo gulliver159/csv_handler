@@ -19,7 +19,8 @@ public class ResultRepository implements ResultWriter {
     }
 
     public void createResults(List<Result> resultList) {
-        template.batchUpdate("INSERT INTO results(name, content) VALUES(?, ?)", new BatchPreparedStatementSetter() {
+        template.batchUpdate("insert into results(name, content) values(?, ?)",
+                new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
                 Result result = resultList.get(i);
@@ -31,5 +32,18 @@ public class ResultRepository implements ResultWriter {
                 return resultList.size();
             }
         });
+    }
+
+    public Result getResult(String name) {
+       return template.queryForObject("select name, content from results where name = ?", new Object[]{name},
+                (rs, rowNum) -> {
+                    Result result1 = new Result();
+                    result1.setName(rs.getString("name"));
+                    result1.setContent(rs.getString("content"));
+                    while (rs.next()) {
+                        result1.setContent(result1.getContent() + rs.getString("content"));
+                    }
+                    return result1;
+                });
     }
 }

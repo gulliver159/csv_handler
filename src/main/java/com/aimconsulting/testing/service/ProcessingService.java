@@ -1,5 +1,6 @@
 package com.aimconsulting.testing.service;
 
+import com.aimconsulting.testing.dto.NameDtoRequest;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
@@ -19,13 +20,17 @@ public class ProcessingService {
         this.resultWriter = resultWriter;
     }
 
-    public ResultDtoResponse parse(ContentDtoRequest contentDtoRequest) {
-        String requestContent = contentDtoRequest.getContent();
-        List<Result> resultList =  parser.parse(requestContent);
+    public ResultDtoResponse parse(ContentDtoRequest request) {
+        String content = request.getContent();
+        List<Result> resultList =  parser.parse(content);
 
         resultWriter.createResults(resultList);
 
         return new ResultDtoResponse(resultList);
+    }
+
+    public Result getResult(NameDtoRequest request) {
+        return resultWriter.getResult(request.getName());
     }
 
 }

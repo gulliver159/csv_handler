@@ -9,6 +9,9 @@ public class Result {
         this.content = content;
     }
 
+    public Result() {
+    }
+
     public String getName() {
         return name;
     }

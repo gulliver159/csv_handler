@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ResultWriter {
     void createResults(List<Result> resultList);
+    Result getResult(String name);
 }
