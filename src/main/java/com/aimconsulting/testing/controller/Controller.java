@@ -1,15 +1,11 @@
 package com.aimconsulting.testing.controller;
 
 import com.aimconsulting.testing.dto.ContentDtoRequest;
-import com.aimconsulting.testing.dto.NameDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.service.ProcessingService;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class Controller {
@@ -25,8 +21,8 @@ public class Controller {
         return service.parse(request);
     }
 
-    @GetMapping(value = "/csv", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Result getResult(@RequestBody NameDtoRequest request) {
-        return service.getResult(request);
+    @GetMapping(value = "/csv/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Result getResult(@PathVariable("name") String name) {
+        return service.getResult(name);
     }
 }

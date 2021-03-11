@@ -1,7 +1,6 @@
 package com.aimconsulting.testing.service;
 
 import com.aimconsulting.testing.dto.ContentDtoRequest;
-import com.aimconsulting.testing.dto.NameDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
@@ -49,11 +48,11 @@ class ProcessingServiceTest {
 
     @Test
     void testGetResult() {
-        NameDtoRequest request = new NameDtoRequest("id");
+        String name = "id";
         Result answer = new Result("id", "0;1;2;");
 
         when(writer.getResult(anyString())).thenReturn(answer);
 
-        assertEquals(answer, service.getResult(request));
+        assertEquals(answer, service.getResult(name));
     }
 }
