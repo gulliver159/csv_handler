@@ -10,11 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
 class ParserTest {
 
-    @Autowired
-    private Parser parser;
+    private final Parser parser = new Parser();
 
     @Test
     void testParse1() {

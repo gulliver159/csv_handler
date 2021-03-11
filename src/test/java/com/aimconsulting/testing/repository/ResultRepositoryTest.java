@@ -1,11 +1,13 @@
 package com.aimconsulting.testing.repository;
 
+import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ComponentScan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +15,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest
+@SpringBootTest(classes = {
+        TestConfiguration.class,
+        ResultRepository.class
+})
+@ComponentScan(basePackages="com.aimconsulting.testing")
 class ResultRepositoryTest {
 
     @Autowired
