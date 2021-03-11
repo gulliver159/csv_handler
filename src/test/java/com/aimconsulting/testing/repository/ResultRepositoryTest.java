@@ -2,33 +2,22 @@ package com.aimconsulting.testing.repository;
 
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+@SpringBootTest
 class ResultRepositoryTest {
 
-    private static ResultWriter writer;
-
-    @BeforeAll
-    static void beforeAll() {
-        DataSource dataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-                .addScript("classpath:data.sql")
-                .build();
-
-        writer = new ResultRepository(new JdbcTemplate(dataSource));
-    }
+    @Autowired
+    private ResultWriter writer;
 
     @BeforeEach
     void setUp() {
