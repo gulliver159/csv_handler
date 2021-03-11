@@ -18,6 +18,10 @@ public class ResultRepository implements ResultWriter {
         this.template = template;
     }
 
+    public void deleteAll() {
+        template.update("delete from results");
+    }
+
     public void createResults(List<Result> resultList) {
         template.batchUpdate("insert into results(name, content) values(?, ?)",
                 new BatchPreparedStatementSetter() {
