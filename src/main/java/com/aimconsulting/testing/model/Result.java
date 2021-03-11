@@ -1,12 +1,15 @@
-package com.aimconsulting.testing.dto;
+package com.aimconsulting.testing.model;
 
-public class ResultInfoDtoResponse {
+public class Result {
     private String name;
     private String content;
 
-    public ResultInfoDtoResponse(String name, String content) {
+    public Result(String name, String content) {
         this.name = name;
         this.content = content;
+    }
+
+    public Result() {
     }
 
     public String getName() {
