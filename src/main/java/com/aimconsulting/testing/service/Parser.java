@@ -11,7 +11,7 @@ public class Parser {
     public static final String SEPARATOR = ";";
 
     public List<Result> parse(String content) {
-        Map<String, Set<String>> data = new HashMap<>();
+        Map<String, Set<String>> data = new LinkedHashMap<>();
         Map<Integer, String> indexKeysData = new HashMap<>();
 
         String[] keysAndValues = content.split("\n", 2);

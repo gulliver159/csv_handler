@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -22,12 +22,12 @@ class ParserTest {
                 "0;1;/hello/уточка;\n" +
                 "1;2;/hello/лошадка;\n" +
                 "2;2;/hello/собачка;";
-        Set<Result> answer = new HashSet<>();
+        List<Result> answer = new ArrayList<>();
         answer.add(new Result("id", "0;1;2;"));
         answer.add(new Result("version", "1;2;"));
         answer.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
 
-        assertEquals(answer, new HashSet<>(parser.parse(content)));
+        assertEquals(answer, parser.parse(content));
     }
 
     @Test
@@ -37,11 +37,11 @@ class ParserTest {
                 "1;жорж;м;\n" +
                 "2;мария;ж;\n" +
                 "3;пьер;м;";
-        Set<Result> answer = new HashSet<>();
+        List<Result> answer = new ArrayList<>();
         answer.add(new Result("id", "0;1;2;3;"));
         answer.add(new Result("name", "ричард;жорж;мария;пьер;"));
         answer.add(new Result("sex", "м;ж;"));
 
-        assertEquals(answer, new HashSet<>(parser.parse(content)));
+        assertEquals(answer, parser.parse(content));
     }
 }
