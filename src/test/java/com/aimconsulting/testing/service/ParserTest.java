@@ -15,7 +15,7 @@ class ParserTest {
     private final Parser parser = new Parser();
 
     @Test
-    void testParse1() {
+    void testParseThreeDivisions() {
         String content = "id;version;path;\n" +
                 "0;1;/hello/уточка;\n" +
                 "1;2;/hello/лошадка;\n" +
@@ -29,14 +29,13 @@ class ParserTest {
     }
 
     @Test
-    void testParse2() {
-        String content = "id;name;sex;\n" +
-                "0;ричард;м;\n" +
-                "1;жорж;м;\n" +
-                "2;мария;ж;\n" +
-                "3;пьер;м;";
+    void testParseTwoDivisions() {
+        String content = "name;sex;\n" +
+                "ричард;м;\n" +
+                "жорж;м;\n" +
+                "мария;ж;\n" +
+                "пьер;м;";
         List<Result> answer = new ArrayList<>();
-        answer.add(new Result("id", "0;1;2;3;"));
         answer.add(new Result("name", "ричард;жорж;мария;пьер;"));
         answer.add(new Result("sex", "м;ж;"));
 
