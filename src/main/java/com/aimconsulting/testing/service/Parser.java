@@ -11,8 +11,8 @@ public class Parser {
     public static final String SEPARATOR = ";";
 
     public List<Result> parse(String content) {
-        HashMap<String, Set<String>> data = new HashMap<>();
-        HashMap<Integer, String> indexKeysData = new HashMap<>();
+        Map<String, Set<String>> data = new LinkedHashMap<>();
+        Map<Integer, String> indexKeysData = new HashMap<>();
 
         String[] keysAndValues = content.split("\n", 2);
         if (keysAndValues.length == 0) {
@@ -23,7 +23,7 @@ public class Parser {
         int index = 0;
         for (String key : keys) {
             if (!data.containsKey(key)) {
-                data.put(key, new HashSet<>());
+                data.put(key, new LinkedHashSet<>());
             }
             indexKeysData.put(index++, key);
         }
@@ -41,7 +41,7 @@ public class Parser {
         return createAnswer(data);
     }
 
-    private List<Result> createAnswer(HashMap<String, Set<String>> data) {
+    private List<Result> createAnswer(Map<String, Set<String>> data) {
         List<Result> resultList = new ArrayList<>();
         for (String name : data.keySet()) {
             String responseContent = String.join(Parser.SEPARATOR, data.get(name)) + Parser.SEPARATOR;
