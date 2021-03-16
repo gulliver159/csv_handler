@@ -17,14 +17,14 @@ public class ResultRepositoryMyBatis implements ResultWriter {
     }
 
     public void deleteAll() {
-
+        resultMapper.deleteAll();
     }
 
     public void createResults(List<Result> resultList) {
-
+        resultMapper.createResults(resultList);
     }
 
     public Result getResult(String name) {
-        return null;
+        return resultMapper.getResult(name);
     }
 }
