@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {
         TestConfiguration.class,
-        ResultRepository.class
+        ResultRepositoryJDBC.class
 })
 @ComponentScan(basePackages="com.aimconsulting.testing")
-class ResultRepositoryTest {
+class ResultRepositoryJDBCTest {
 
     @Autowired
     private ResultWriter writer;

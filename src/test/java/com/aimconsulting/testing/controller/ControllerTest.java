@@ -3,7 +3,6 @@ package com.aimconsulting.testing.controller;
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository.ResultRepository;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,13 +24,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest(classes = {
         TestConfiguration.class,
-        ResultRepository.class
+        ResultWriter.class
 })
 @AutoConfigureMockMvc
 @ComponentScan(basePackages="com.aimconsulting.testing")
 class ControllerTest {
-    @Autowired
-    private ResultWriter writer;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -40,8 +37,8 @@ class ControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
-        writer.deleteAll();
+    void setUp() throws Exception {
+        mockMvc.perform(post("/csv/clear"));
     }
 
     @Test

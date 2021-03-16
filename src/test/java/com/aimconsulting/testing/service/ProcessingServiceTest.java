@@ -3,14 +3,9 @@ package com.aimconsulting.testing.service;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository.ResultRepository;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +17,7 @@ import static org.mockito.Mockito.when;
 class ProcessingServiceTest {
 
     private final Parser parser = Mockito.mock(Parser.class);
-    private final ResultWriter writer = Mockito.mock(ResultRepository.class);
+    private final ResultWriter writer = Mockito.mock(ResultWriter.class);
     private final ProcessingService service = new ProcessingService(parser, writer);
 
     @Test

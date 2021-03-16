@@ -12,11 +12,14 @@ import javax.sql.DataSource;
 public class TestConfiguration {
 
     @Bean
-    public JdbcTemplate template() {
-        DataSource dataSource = new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+    public DataSource dataSource() {
+        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
                 .addScript("classpath:schema.sql")
                 .build();
+    }
 
-        return new JdbcTemplate(dataSource);
+    @Bean
+    public JdbcTemplate template() {
+        return new JdbcTemplate(dataSource());
     }
 }

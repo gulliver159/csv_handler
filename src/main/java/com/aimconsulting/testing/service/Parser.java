@@ -34,7 +34,7 @@ public class Parser {
         index = 0;
         String[] values = keysAndValues[1].replace("\n", "").split(SEPARATOR);
         for (String value : values) {
-            Set<String> valuesFromData = data.get(indexKeysData.get(index++ % 3));
+            Set<String> valuesFromData = data.get(indexKeysData.get(index++ % keys.length));
             valuesFromData.add(value);
         }
 

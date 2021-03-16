@@ -33,4 +33,8 @@ public class ProcessingService {
         return resultWriter.getResult(name);
     }
 
+    public void deleteAll() {
+        resultWriter.deleteAll();
+    }
+
 }

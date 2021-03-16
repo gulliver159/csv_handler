@@ -25,4 +25,9 @@ public class Controller {
     public Result getResult(@PathVariable("name") String name) {
         return service.getResult(name);
     }
+
+    @PostMapping(value = "/csv/clear")
+    public void clearStateServer() {
+        service.deleteAll();
+    }
 }
