@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class ResultRepository implements ResultWriter {
+public class ResultRepositoryJDBC implements ResultWriter {
     private final JdbcTemplate template;
 
-    public ResultRepository(JdbcTemplate template) {
+    public ResultRepositoryJDBC(JdbcTemplate template) {
         this.template = template;
     }
 

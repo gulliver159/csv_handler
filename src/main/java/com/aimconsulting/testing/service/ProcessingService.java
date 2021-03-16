@@ -4,6 +4,7 @@ import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public class ProcessingService {
     private final Parser parser;
     private final ResultWriter resultWriter;
 
-    public ProcessingService(Parser parser, ResultWriter resultWriter) {
+    public ProcessingService(Parser parser, @Qualifier("resultRepositoryMyBatis") ResultWriter resultWriter) {
         this.parser = parser;
         this.resultWriter = resultWriter;
     }
