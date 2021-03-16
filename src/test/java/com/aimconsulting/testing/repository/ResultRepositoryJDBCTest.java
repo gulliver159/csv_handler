@@ -31,7 +31,7 @@ class ResultRepositoryJDBCTest {
     }
 
     @Test
-    void testCreateResults1() {
+    void testCreateResultsThreeDivisions() {
         List<Result> resultList = new ArrayList<>();
         resultList.add(new Result("id", "0;1;2;"));
         resultList.add(new Result("version", "1;2;"));
@@ -40,25 +40,23 @@ class ResultRepositoryJDBCTest {
         writer.createResults(resultList);
 
         assertAll(
-                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName())),
-                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName())),
-                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()))
+                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0)),
+                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()).get(0))
         );
     }
 
     @Test
-    void testCreateResults2() {
+    void testCreateResultsTwoDivisions() {
         List<Result> resultList = new ArrayList<>();
         resultList.add(new Result("id", "0;1;2;3;"));
         resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
-        resultList.add(new Result("sex", "м;ж;"));
 
         writer.createResults(resultList);
 
         assertAll(
-                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName())),
-                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName())),
-                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()))
+                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
         );
     }
 

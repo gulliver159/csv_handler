@@ -41,10 +41,12 @@ class ProcessingServiceTest {
     @Test
     void testGetResult() {
         String name = "id";
-        Result answer = new Result("id", "0;1;2;");
+        List<Result> parserAnswer = new ArrayList<>();
+        parserAnswer.add(new Result("id", "0;1;2;"));
+        parserAnswer.add(new Result("id", "3;6;7"));
 
-        when(writer.getResult(anyString())).thenReturn(answer);
+        when(writer.getResult(anyString())).thenReturn(parserAnswer);
 
-        assertEquals(answer, service.getResult(name));
+        assertEquals(new Result("id", "0;1;2;3;6;7"), service.getResult(name));
     }
 }

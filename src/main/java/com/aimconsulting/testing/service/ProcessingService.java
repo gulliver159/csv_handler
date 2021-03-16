@@ -30,11 +30,16 @@ public class ProcessingService {
     }
 
     public Result getResult(String name) {
-        return resultWriter.getResult(name);
+        List<Result> results = resultWriter.getResult(name);
+
+        StringBuilder contentBuilder = new StringBuilder();
+        for (Result result : results) {
+            contentBuilder.append(result.getContent());
+        }
+        return new Result(name, contentBuilder.toString());
     }
 
     public void deleteAll() {
         resultWriter.deleteAll();
     }
-
 }

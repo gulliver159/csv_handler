@@ -24,7 +24,7 @@ public class ResultRepositoryMyBatis implements ResultWriter {
         resultMapper.createResults(resultList);
     }
 
-    public Result getResult(String name) {
+    public List<Result> getResult(String name) {
         return resultMapper.getResult(name);
     }
 }

@@ -26,5 +26,5 @@ public interface ResultMapper {
     void createResults(List<Result> resultList);
 
     @Select("select name, content from results where name = #{name}")
-    Result getResult(String name);
+    List<Result> getResult(String name);
 }
