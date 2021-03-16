@@ -23,6 +23,10 @@ public class ResultRepositoryJDBC implements ResultWriter {
         template.update("delete from results");
     }
 
+    public void deleteResult(String name) {
+        template.update("delete from results where name = ?", name);
+    }
+
     public void createResults(List<Result> resultList) {
         template.batchUpdate("insert into results(name, content) values(?, ?)",
                 new BatchPreparedStatementSetter() {

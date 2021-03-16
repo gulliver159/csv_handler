@@ -60,4 +60,19 @@ class ResultRepositoryJDBCTest {
         );
     }
 
+    @Test
+    void testDeleteResult() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;3;"));
+        resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
+        writer.createResults(resultList);
+
+        writer.deleteResult("id");
+
+        assertAll(
+                () -> assertEquals(new ArrayList<>(), writer.getResult(resultList.get(0).getName())),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
+        );
+    }
+
 }

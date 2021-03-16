@@ -39,6 +39,10 @@ public class ProcessingService {
         return new Result(name, contentBuilder.toString());
     }
 
+    public void deleteResult(String name) {
+        resultWriter.deleteResult(name);
+    }
+
     public void deleteAll() {
         resultWriter.deleteAll();
     }

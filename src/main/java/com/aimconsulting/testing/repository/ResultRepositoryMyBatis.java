@@ -20,6 +20,10 @@ public class ResultRepositoryMyBatis implements ResultWriter {
         resultMapper.deleteAll();
     }
 
+    public void deleteResult(String name) {
+        resultMapper.deleteResult(name);
+    }
+
     public void createResults(List<Result> resultList) {
         resultMapper.createResults(resultList);
     }

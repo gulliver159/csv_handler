@@ -14,6 +14,9 @@ public interface ResultMapper {
     @Delete("delete from results")
     void deleteAll();
 
+    @Delete("delete from results where name = #{name}")
+    void deleteResult(String name);
+
     @Insert({
         "<script>",
             "insert into results(name, content) ",

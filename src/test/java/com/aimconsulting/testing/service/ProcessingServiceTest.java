@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
@@ -48,5 +49,10 @@ class ProcessingServiceTest {
         when(writer.getResult(anyString())).thenReturn(parserAnswer);
 
         assertEquals(new Result("id", "0;1;2;3;6;7"), service.getResult(name));
+    }
+
+    @Test
+    void testDeleteResult() {
+        assertDoesNotThrow(() -> service.deleteResult("id"));
     }
 }
