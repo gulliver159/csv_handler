@@ -5,7 +5,9 @@ import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.ComponentScan;
 
@@ -17,12 +19,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {
         TestConfiguration.class,
-        ResultRepository.class
+        ResultRepositoryMyBatis.class
 })
 @ComponentScan(basePackages="com.aimconsulting.testing")
-class ResultRepositoryTest {
+@MapperScan("com.aimconsulting.testing.mapper")
+class ResultRepositoryMyBatisTest {
 
     @Autowired
+    @Qualifier("resultRepositoryMyBatis")
     private ResultWriter writer;
 
     @BeforeEach
@@ -31,7 +35,7 @@ class ResultRepositoryTest {
     }
 
     @Test
-    void testCreateResults1() {
+    void testCreateResultsThreeDivisions() {
         List<Result> resultList = new ArrayList<>();
         resultList.add(new Result("id", "0;1;2;"));
         resultList.add(new Result("version", "1;2;"));
@@ -40,25 +44,38 @@ class ResultRepositoryTest {
         writer.createResults(resultList);
 
         assertAll(
-                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName())),
-                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName())),
-                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()))
+                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0)),
+                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()).get(0))
         );
     }
 
     @Test
-    void testCreateResults2() {
+    void testCreateResultsTwoDivisions() {
         List<Result> resultList = new ArrayList<>();
         resultList.add(new Result("id", "0;1;2;3;"));
         resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
-        resultList.add(new Result("sex", "м;ж;"));
 
         writer.createResults(resultList);
 
         assertAll(
-                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName())),
-                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName())),
-                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()))
+                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
+        );
+    }
+
+    @Test
+    void testDeleteResult() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;3;"));
+        resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
+        writer.createResults(resultList);
+
+        writer.deleteResult("id");
+
+        assertAll(
+                () -> assertEquals(new ArrayList<>(), writer.getResult(resultList.get(0).getName())),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
         );
     }
 

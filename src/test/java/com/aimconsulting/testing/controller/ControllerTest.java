@@ -3,7 +3,6 @@ package com.aimconsulting.testing.controller;
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository.ResultRepository;
 import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,20 +17,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest(classes = {
         TestConfiguration.class,
-        ResultRepository.class
+        ResultWriter.class
 })
 @AutoConfigureMockMvc
 @ComponentScan(basePackages="com.aimconsulting.testing")
 class ControllerTest {
-    @Autowired
-    private ResultWriter writer;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -40,8 +36,8 @@ class ControllerTest {
     private MockMvc mockMvc;
 
     @BeforeEach
-    void setUp() {
-        writer.deleteAll();
+    void setUp() throws Exception {
+        mockMvc.perform(post("/csv/clear"));
     }
 
     @Test
@@ -84,6 +80,34 @@ class ControllerTest {
         );
 
         Result answer = new Result("id", "0;1;2;");
+
+        mockMvc.perform(
+                get("/csv/id")
+        )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.name").value(answer.getName()))
+                .andExpect(jsonPath("$.content").value(answer.getContent()));
+    }
+
+    @Test
+    void testDeleteResult() throws Exception {
+        ContentDtoRequest request = new ContentDtoRequest("id;version;path;\n" +
+                "0;1;/hello/уточка;\n" +
+                "1;2;/hello/лошадка;\n" +
+                "2;2;/hello/собачка;");
+
+        mockMvc.perform(
+                post("/csv/handling")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+        );
+
+        mockMvc.perform(
+                delete("/csv/id")
+        )
+                .andExpect(status().isOk());
+
+        Result answer = new Result("id", "");
 
         mockMvc.perform(
                 get("/csv/id")

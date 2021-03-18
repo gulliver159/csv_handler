@@ -8,18 +8,23 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ResultRepository implements ResultWriter {
+public class ResultRepositoryJDBC implements ResultWriter {
     private final JdbcTemplate template;
 
-    public ResultRepository(JdbcTemplate template) {
+    public ResultRepositoryJDBC(JdbcTemplate template) {
         this.template = template;
     }
 
     public void deleteAll() {
         template.update("delete from results");
+    }
+
+    public void deleteResult(String name) {
+        template.update("delete from results where name = ?", name);
     }
 
     public void createResults(List<Result> resultList) {
@@ -38,16 +43,8 @@ public class ResultRepository implements ResultWriter {
         });
     }
 
-    public Result getResult(String name) {
-       return template.queryForObject("select name, content from results where name = ?", new Object[]{name},
-                (rs, rowNum) -> {
-                    Result result1 = new Result();
-                    result1.setName(rs.getString("name"));
-                    result1.setContent(rs.getString("content"));
-                    while (rs.next()) {
-                        result1.setContent(result1.getContent() + rs.getString("content"));
-                    }
-                    return result1;
-                });
+    public List<Result> getResult(String name) {
+        return template.query("select name, content from results where name = ?", new Object[]{name},
+                (rs, rowNum) -> new Result(rs.getString("name"), rs.getString("content")));
     }
 }

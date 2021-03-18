@@ -25,4 +25,14 @@ public class Controller {
     public Result getResult(@PathVariable("name") String name) {
         return service.getResult(name);
     }
+
+    @DeleteMapping(value = "/csv/{name}")
+    public void deleteResult(@PathVariable("name") String name) {
+        service.deleteResult(name);
+    }
+
+    @PostMapping(value = "/csv/clear")
+    public void clearStateServer() {
+        service.deleteAll();
+    }
 }

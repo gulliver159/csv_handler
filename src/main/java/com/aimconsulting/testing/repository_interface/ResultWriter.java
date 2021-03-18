@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface ResultWriter {
     void deleteAll();
+    void deleteResult(String name);
     void createResults(List<Result> resultList);
-    Result getResult(String name);
+    List<Result> getResult(String name);
 }

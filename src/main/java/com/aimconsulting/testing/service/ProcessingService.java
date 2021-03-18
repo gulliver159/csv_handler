@@ -4,6 +4,7 @@ import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +15,9 @@ public class ProcessingService {
     private final Parser parser;
     private final ResultWriter resultWriter;
 
-    public ProcessingService(Parser parser, ResultWriter resultWriter) {
+    public ProcessingService(Parser parser, ResultWriter resultRepositoryMyBatis) {
         this.parser = parser;
-        this.resultWriter = resultWriter;
+        this.resultWriter = resultRepositoryMyBatis;
     }
 
     public ResultDtoResponse parse(ContentDtoRequest request) {
@@ -29,7 +30,20 @@ public class ProcessingService {
     }
 
     public Result getResult(String name) {
-        return resultWriter.getResult(name);
+        List<Result> results = resultWriter.getResult(name);
+
+        StringBuilder contentBuilder = new StringBuilder();
+        for (Result result : results) {
+            contentBuilder.append(result.getContent());
+        }
+        return new Result(name, contentBuilder.toString());
     }
 
+    public void deleteResult(String name) {
+        resultWriter.deleteResult(name);
+    }
+
+    public void deleteAll() {
+        resultWriter.deleteAll();
+    }
 }
