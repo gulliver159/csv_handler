@@ -15,9 +15,9 @@ public class ProcessingService {
     private final Parser parser;
     private final ResultWriter resultWriter;
 
-    public ProcessingService(Parser parser, @Qualifier("resultRepositoryMyBatis") ResultWriter resultWriter) {
+    public ProcessingService(Parser parser, ResultWriter resultRepositoryMyBatis) {
         this.parser = parser;
-        this.resultWriter = resultWriter;
+        this.resultWriter = resultRepositoryMyBatis;
     }
 
     public ResultDtoResponse parse(ContentDtoRequest request) {
