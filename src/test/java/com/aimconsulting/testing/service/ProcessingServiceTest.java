@@ -10,10 +10,9 @@ import org.mockito.Mockito;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ProcessingServiceTest {
 
@@ -33,10 +32,12 @@ class ProcessingServiceTest {
         parserAnswer.add(new Result("version", "1;2;"));
         parserAnswer.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
 
-        ResultDtoResponse answer = new ResultDtoResponse(parserAnswer);
+        ResultDtoResponse expectedAnswer = new ResultDtoResponse(parserAnswer);
         when(parser.parse(anyString())).thenReturn(parserAnswer);
 
-        assertEquals(answer, service.parse(request));
+        ResultDtoResponse actualAnswer = service.parse(request);
+
+        assertEquals(expectedAnswer, actualAnswer);
     }
 
     @Test
@@ -48,11 +49,15 @@ class ProcessingServiceTest {
 
         when(writer.getResult(anyString())).thenReturn(parserAnswer);
 
-        assertEquals(new Result("id", "0;1;2;3;6;7"), service.getResult(name));
+        Result expectedAnswer = new Result("id", "0;1;2;3;6;7");
+        Result actualAnswer = service.getResult(name);
+
+        assertEquals(expectedAnswer, actualAnswer);
     }
 
     @Test
     void testDeleteResult() {
-        assertDoesNotThrow(() -> service.deleteResult("id"));
+        service.deleteResult("id");
+        verify(writer, times(1)).deleteResult("id");
     }
 }

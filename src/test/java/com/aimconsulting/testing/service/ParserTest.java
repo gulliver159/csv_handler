@@ -18,12 +18,14 @@ class ParserTest {
                 "0;1;/hello/уточка;\n" +
                 "1;2;/hello/лошадка;\n" +
                 "2;2;/hello/собачка;";
-        List<Result> answer = new ArrayList<>();
-        answer.add(new Result("id", "0;1;2;"));
-        answer.add(new Result("version", "1;2;"));
-        answer.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
+        List<Result> expectedAnswer = new ArrayList<>();
+        expectedAnswer.add(new Result("id", "0;1;2;"));
+        expectedAnswer.add(new Result("version", "1;2;"));
+        expectedAnswer.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
 
-        assertEquals(answer, parser.parse(content));
+        List<Result> actualAnswer = parser.parse(content);
+
+        assertEquals(expectedAnswer, actualAnswer);
     }
 
     @Test
@@ -33,10 +35,12 @@ class ParserTest {
                 "жорж;м;\n" +
                 "мария;ж;\n" +
                 "пьер;м;";
-        List<Result> answer = new ArrayList<>();
-        answer.add(new Result("name", "ричард;жорж;мария;пьер;"));
-        answer.add(new Result("sex", "м;ж;"));
+        List<Result> expectedAnswer = new ArrayList<>();
+        expectedAnswer.add(new Result("name", "ричард;жорж;мария;пьер;"));
+        expectedAnswer.add(new Result("sex", "м;ж;"));
 
-        assertEquals(answer, parser.parse(content));
+        List<Result> actualAnswer = parser.parse(content);
+
+        assertEquals(expectedAnswer, actualAnswer);
     }
 }
