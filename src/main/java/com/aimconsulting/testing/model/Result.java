@@ -1,8 +1,15 @@
 package com.aimconsulting.testing.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "results")
 public class Result {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String name;
     private String content;
 
