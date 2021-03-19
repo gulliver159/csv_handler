@@ -1,4 +1,4 @@
-package com.aimconsulting.testing.mapper;
+package com.aimconsulting.testing.repository.impl.mybatis.mapper;
 
 import com.aimconsulting.testing.model.Result;
 import org.apache.ibatis.annotations.Delete;

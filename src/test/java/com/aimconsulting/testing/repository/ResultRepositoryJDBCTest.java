@@ -2,7 +2,7 @@ package com.aimconsulting.testing.repository;
 
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.impl.jdbc.ResultRepositoryJDBC;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,8 +1,8 @@
-package com.aimconsulting.testing.repository;
+package com.aimconsulting.testing.repository.impl.mybatis.repository;
 
-import com.aimconsulting.testing.mapper.ResultMapper;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.ResultWriter;
+import com.aimconsulting.testing.repository.impl.mybatis.mapper.ResultMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

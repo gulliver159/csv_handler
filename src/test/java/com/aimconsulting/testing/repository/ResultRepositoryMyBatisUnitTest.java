@@ -1,8 +1,8 @@
 package com.aimconsulting.testing.repository;
 
-import com.aimconsulting.testing.mapper.ResultMapper;
+import com.aimconsulting.testing.repository.impl.mybatis.mapper.ResultMapper;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.impl.mybatis.repository.ResultRepositoryMyBatis;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

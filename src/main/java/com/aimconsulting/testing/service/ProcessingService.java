@@ -1,10 +1,9 @@
 package com.aimconsulting.testing.service;
 
-import com.aimconsulting.testing.repository_interface.ResultWriter;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
-import org.springframework.beans.factory.annotation.Qualifier;
+import com.aimconsulting.testing.repository.ResultWriter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
