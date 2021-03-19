@@ -1,5 +1,6 @@
-package com.aimconsulting.testing.repository;
+package com.aimconsulting.testing.repository.mybatis;
 
+import com.aimconsulting.testing.repository.ResultWriter;
 import com.aimconsulting.testing.repository.impl.mybatis.mapper.ResultMapper;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository.impl.mybatis.repository.ResultRepositoryMyBatis;

@@ -1,11 +1,11 @@
-package com.aimconsulting.testing.repository;
+package com.aimconsulting.testing.repository.jdbc;
 
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository.impl.mybatis.repository.ResultRepositoryMyBatis;
+import com.aimconsulting.testing.repository.ResultWriter;
+import com.aimconsulting.testing.repository.impl.jdbc.ResultRepositoryJDBC;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,14 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(classes = {
         TestConfiguration.class,
-        ResultRepositoryMyBatis.class
+        ResultRepositoryJDBC.class
 })
 @ComponentScan(basePackages="com.aimconsulting.testing")
-@MapperScan("com.aimconsulting.testing.mapper")
-class ResultRepositoryMyBatisTest {
+class ResultRepositoryJDBCTest {
 
     @Autowired
-    @Qualifier("resultRepositoryMyBatis")
+    @Qualifier("resultRepositoryJDBC")
     private ResultWriter writer;
 
     @BeforeEach
