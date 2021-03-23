@@ -3,7 +3,7 @@ package com.aimconsulting.testing.repository.jpa;
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository.ResultWriter;
-import com.aimconsulting.testing.repository.impl.jpa.ResultRepositoryJPA;
+import com.aimconsulting.testing.repository.impl.jpa.repository.ResultRepositoryJPA;
 import com.aimconsulting.testing.repository.impl.jpa.mapper.ResultCrudRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

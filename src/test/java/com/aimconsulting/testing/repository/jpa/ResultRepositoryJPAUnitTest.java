@@ -2,8 +2,8 @@ package com.aimconsulting.testing.repository.jpa;
 
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository.ResultWriter;
-import com.aimconsulting.testing.repository.impl.jpa.ResultRepositoryJPA;
 import com.aimconsulting.testing.repository.impl.jpa.mapper.ResultCrudRepository;
+import com.aimconsulting.testing.repository.impl.jpa.repository.ResultRepositoryJPA;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,8 +16,8 @@ import static org.mockito.Mockito.verify;
 
 class ResultRepositoryJPAUnitTest {
 
-    private final ResultCrudRepository crudRepository = Mockito.mock(ResultCrudRepository.class);
-    private final ResultWriter writer = new ResultRepositoryJPA(crudRepository);
+    private final ResultCrudRepository resultCrudRepository = Mockito.mock(ResultCrudRepository.class);
+    private final ResultWriter writer = new ResultRepositoryJPA(resultCrudRepository);
 
     @BeforeEach
     void setUp() {
@@ -32,18 +32,18 @@ class ResultRepositoryJPAUnitTest {
 
         writer.createResults(resultList);
 
-        verify(crudRepository, times(1)).saveAll(resultList);
+        verify(resultCrudRepository, times(1)).saveAll(resultList);
     }
 
     @Test
     void testGetResult() {
         writer.getResult("id");
-        verify(crudRepository, times(1)).findAllByName("id");
+        verify(resultCrudRepository, times(1)).findAllByName("id");
     }
 
     @Test
     void testDeleteResult() {
         writer.deleteResult("id");
-        verify(crudRepository, times(1)).deleteByName("id");
+        verify(resultCrudRepository, times(1)).deleteByName("id");
     }
 }

@@ -1,6 +1,7 @@
-package com.aimconsulting.testing.repository.impl.jpa;
+package com.aimconsulting.testing.repository.impl.jpa.repository;
 
 import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import com.aimconsulting.testing.repository.impl.jpa.mapper.ResultCrudRepository;
 import org.springframework.context.annotation.Primary;
@@ -32,5 +33,9 @@ public class ResultRepositoryJPA implements ResultWriter {
 
     public List<Result> getResult(String name) {
         return resultCrudRepository.findAllByName(name);
+    }
+
+    public void createResultsByUser(List<Result> resultList) {
+        resultCrudRepository.saveAll(resultList);
     }
 }

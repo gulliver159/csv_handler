@@ -1,6 +1,7 @@
 package com.aimconsulting.testing.repository.impl.jdbc;
 
 import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,5 +46,9 @@ public class ResultRepositoryJDBC implements ResultWriter {
     public List<Result> getResult(String name) {
         return template.query("select name, content from results where name = ?", new Object[]{name},
                 (rs, rowNum) -> new Result(rs.getString("name"), rs.getString("content")));
+    }
+
+    public void createResultsByUser(List<Result> resultList) {
+
     }
 }

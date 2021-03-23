@@ -13,12 +13,23 @@ public class Result {
     private String name;
     private String content;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User user;
+
     public Result(String name, String content) {
         this.name = name;
         this.content = content;
     }
-
     public Result() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

@@ -1,6 +1,7 @@
 package com.aimconsulting.testing.controller;
 
 import com.aimconsulting.testing.dto.ContentDtoRequest;
+import com.aimconsulting.testing.dto.CreateByUserDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.service.ProcessingService;
@@ -34,5 +35,10 @@ public class Controller {
     @PostMapping(value = "/csv/clear")
     public void clearStateServer() {
         service.deleteAll();
+    }
+
+    @PostMapping(value = "/user/handling", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultDtoResponse createByUser(@RequestBody CreateByUserDtoRequest request) {
+        return service.createByUser(request);
     }
 }

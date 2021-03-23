@@ -1,8 +1,10 @@
 package com.aimconsulting.testing.service;
 
 import com.aimconsulting.testing.dto.ContentDtoRequest;
+import com.aimconsulting.testing.dto.CreateByUserDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import org.springframework.stereotype.Service;
 
@@ -44,5 +46,18 @@ public class ProcessingService {
 
     public void deleteAll() {
         resultWriter.deleteAll();
+    }
+
+    public ResultDtoResponse createByUser(CreateByUserDtoRequest request) {
+        String content = request.getContent();
+        List<Result> resultList =  parser.parse(content);
+        User user = request.getUser();
+
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+        resultWriter.createResultsByUser(resultList);
+
+        return new ResultDtoResponse(resultList);
     }
 }
