@@ -36,4 +36,8 @@ public class ResultRepositoryMyBatis implements ResultWriter {
     public void createResultsByUser(List<Result> resultList) {
 
     }
+
+    public List<Result> getResultsByUsername(String username) {
+        return null;
+    }
 }

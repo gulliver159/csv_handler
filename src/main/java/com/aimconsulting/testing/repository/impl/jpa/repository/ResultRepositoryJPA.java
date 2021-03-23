@@ -38,4 +38,8 @@ public class ResultRepositoryJPA implements ResultWriter {
     public void createResultsByUser(List<Result> resultList) {
         resultCrudRepository.saveAll(resultList);
     }
+
+    public List<Result> getResultsByUsername(String username) {
+        return resultCrudRepository.findAllByUserName(username);
+    }
 }

@@ -60,4 +60,12 @@ public class ProcessingService {
 
         return new ResultDtoResponse(resultList);
     }
+
+    public ResultDtoResponse getResultsByUser(String username) {
+        List<Result> results = resultWriter.getResultsByUsername(username);
+        for (Result result : results) {
+            result.getUser().setResults(null);
+        }
+        return new ResultDtoResponse(results);
+    }
 }

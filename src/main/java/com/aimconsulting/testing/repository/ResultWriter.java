@@ -11,4 +11,5 @@ public interface ResultWriter {
     void createResults(List<Result> resultList);
     List<Result> getResult(String name);
     void createResultsByUser(List<Result> resultList);
+    List<Result> getResultsByUsername(String username);
 }
