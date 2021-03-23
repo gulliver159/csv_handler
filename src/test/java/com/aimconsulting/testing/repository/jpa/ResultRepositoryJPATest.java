@@ -2,9 +2,10 @@ package com.aimconsulting.testing.repository.jpa;
 
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
-import com.aimconsulting.testing.repository.impl.jpa.repository.ResultRepositoryJPA;
 import com.aimconsulting.testing.repository.impl.jpa.mapper.ResultCrudRepository;
+import com.aimconsulting.testing.repository.impl.jpa.repository.ResultRepositoryJPA;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,7 @@ class ResultRepositoryJPATest {
     }
 
     @Test
-    void testCreateResultsThreeDivisions() {
+    void testCreateResults() {
         List<Result> resultList = new ArrayList<>();
         resultList.add(new Result("id", "0;1;2;"));
         resultList.add(new Result("version", "1;2;"));
@@ -49,20 +50,6 @@ class ResultRepositoryJPATest {
                 () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
                 () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0)),
                 () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()).get(0))
-        );
-    }
-
-    @Test
-    void testCreateResultsTwoDivisions() {
-        List<Result> resultList = new ArrayList<>();
-        resultList.add(new Result("id", "0;1;2;3;"));
-        resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
-
-        writer.createResults(resultList);
-
-        assertAll(
-                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
-                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
         );
     }
 
@@ -79,6 +66,46 @@ class ResultRepositoryJPATest {
                 () -> assertEquals(new ArrayList<>(), writer.getResult(resultList.get(0).getName())),
                 () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
         );
+    }
+
+    @Test
+    void testCreateResultsByUser() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;"));
+        resultList.add(new Result("version", "1;2;"));
+        resultList.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
+
+        User user = new User("Roma");
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+
+        writer.createResultsByUser(resultList);
+
+        assertAll(
+                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0)),
+                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()).get(0)),
+                () -> assertEquals(resultList, writer.getResultsByUsername(user.getName()))
+        );
+    }
+
+    @Test
+    void testDeleteResultsByUsername() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;3;"));
+        resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
+
+        User user = new User("Roma");
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+
+        writer.createResults(resultList);
+
+        writer.deleteResultsByUsername(user.getName());
+
+        assertEquals(new ArrayList<>(), writer.getResultsByUsername(user.getName()));
     }
 
 }

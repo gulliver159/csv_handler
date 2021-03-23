@@ -1,7 +1,6 @@
 package com.aimconsulting.testing.repository.impl.jdbc;
 
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -56,7 +55,7 @@ public class ResultRepositoryJDBC implements ResultWriter {
         return null;
     }
 
-    public void deleteByUserName(String username) {
+    public void deleteResultsByUsername(String username) {
 
     }
 }

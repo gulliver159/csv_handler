@@ -2,6 +2,7 @@ package com.aimconsulting.testing.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -39,6 +40,19 @@ public class User {
 
     public void setResults(List<Result> results) {
         this.results = results;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(name, user.name) && Objects.equals(results, user.results);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, results);
     }
 
     @Override

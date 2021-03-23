@@ -43,7 +43,7 @@ public class ResultRepositoryMyBatis implements ResultWriter {
         return resultMapper.getResultsByUsername(username);
     }
 
-    public void deleteByUserName(String username) {
+    public void deleteResultsByUsername(String username) {
         resultMapper.deleteResultsByUsername(username);
     }
 }

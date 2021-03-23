@@ -1,6 +1,7 @@
 package com.aimconsulting.testing.repository.jpa;
 
 import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import com.aimconsulting.testing.repository.impl.jpa.mapper.ResultCrudRepository;
 import com.aimconsulting.testing.repository.impl.jpa.repository.ResultRepositoryJPA;
@@ -45,5 +46,33 @@ class ResultRepositoryJPAUnitTest {
     void testDeleteResult() {
         writer.deleteResult("id");
         verify(resultCrudRepository, times(1)).deleteByName("id");
+    }
+
+    @Test
+    void testCreateResultsByUser() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;"));
+        resultList.add(new Result("version", "1;2;"));
+
+        User user = new User("Roma");
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+
+        writer.createResultsByUser(resultList);
+
+        verify(resultCrudRepository, times(1)).saveAll(resultList);
+    }
+
+    @Test
+    void testGetResultsByUsername() {
+        writer.getResultsByUsername("Roma");
+        verify(resultCrudRepository, times(1)).findAllByUserName("Roma");
+    }
+
+    @Test
+    void testDeleteResultsByUsername() {
+        writer.deleteResultsByUsername("Roma");
+        verify(resultCrudRepository, times(1)).deleteByUserName("Roma");
     }
 }

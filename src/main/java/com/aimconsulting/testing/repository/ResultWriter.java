@@ -1,7 +1,6 @@
 package com.aimconsulting.testing.repository;
 
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.model.User;
 
 import java.util.List;
 
@@ -12,5 +11,5 @@ public interface ResultWriter {
     List<Result> getResult(String name);
     void createResultsByUser(List<Result> resultList);
     List<Result> getResultsByUsername(String username);
-    void deleteByUserName(String username);
+    void deleteResultsByUsername(String username);
 }

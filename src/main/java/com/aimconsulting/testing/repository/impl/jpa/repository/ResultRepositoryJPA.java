@@ -1,7 +1,6 @@
 package com.aimconsulting.testing.repository.impl.jpa.repository;
 
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import com.aimconsulting.testing.repository.impl.jpa.mapper.ResultCrudRepository;
 import org.springframework.context.annotation.Primary;
@@ -43,7 +42,7 @@ public class ResultRepositoryJPA implements ResultWriter {
         return resultCrudRepository.findAllByUserName(username);
     }
 
-    public void deleteByUserName(String username) {
+    public void deleteResultsByUsername(String username) {
         resultCrudRepository.deleteByUserName(username);
     }
 }

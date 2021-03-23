@@ -26,16 +26,20 @@ public interface ResultMapper {
     })
     void createResults(List<Result> resultList);
 
-    @Select("select name, content from results where name = #{name}")
+    @Select("select name, content, user_id from results where name = #{name}")
+    @org.apache.ibatis.annotations.Result(property = "user", column = "user_id", one = @One(select = "getUserById"))
     List<Result> getResult(String name);
 
     @Select("select results.name, content, #{username} as username from results left outer join users on results.user_id = users.id " +
             "where users.name = #{username}")
-    @org.apache.ibatis.annotations.Result(property = "user", column = "username", one = @One(select = "getUser"))
+    @org.apache.ibatis.annotations.Result(property = "user", column = "username", one = @One(select = "getUserByName"))
     List<Result> getResultsByUsername(String username);
 
     @Select("select id, name from users where name = #{name}")
-    User getUser(String name);
+    User getUserByName(String name);
+
+    @Select("select id, name from users where id = #{id}")
+    User getUserById(int id);
 
     @Insert("insert into users(name) values (#{user.name})")
     @Options(useGeneratedKeys = true, keyProperty = "user.id")

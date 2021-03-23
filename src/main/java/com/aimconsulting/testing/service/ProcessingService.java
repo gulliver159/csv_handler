@@ -70,6 +70,6 @@ public class ProcessingService {
     }
 
     public void deleteResultsByUsername(String username) {
-        resultWriter.deleteByUserName(username);
+        resultWriter.deleteResultsByUsername(username);
     }
 }

@@ -1,7 +1,6 @@
 package com.aimconsulting.testing.repository.impl.jpa.mapper;
 
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.model.User;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.transaction.Transactional;

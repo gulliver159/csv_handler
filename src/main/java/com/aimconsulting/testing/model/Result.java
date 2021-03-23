@@ -53,12 +53,12 @@ public class Result {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Result result = (Result) o;
-        return Objects.equals(name, result.name) && Objects.equals(content, result.content);
+        return Objects.equals(name, result.name) && Objects.equals(content, result.content) && Objects.equals(user, result.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, content);
+        return Objects.hash(id, name, content, user);
     }
 
     @Override
