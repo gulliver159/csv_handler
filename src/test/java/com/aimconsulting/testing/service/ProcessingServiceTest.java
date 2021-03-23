@@ -3,7 +3,7 @@ package com.aimconsulting.testing.service;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.ResultWriter;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

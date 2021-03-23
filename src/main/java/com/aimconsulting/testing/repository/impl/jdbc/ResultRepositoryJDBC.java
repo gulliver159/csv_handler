@@ -1,14 +1,13 @@
-package com.aimconsulting.testing.repository;
+package com.aimconsulting.testing.repository.impl.jdbc;
 
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.ResultWriter;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository

@@ -1,4 +1,4 @@
-package com.aimconsulting.testing.repository_interface;
+package com.aimconsulting.testing.repository;
 
 import com.aimconsulting.testing.model.Result;
 

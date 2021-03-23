@@ -1,8 +1,9 @@
-package com.aimconsulting.testing.repository;
+package com.aimconsulting.testing.repository.mybatis;
 
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.ResultWriter;
+import com.aimconsulting.testing.repository.impl.mybatis.repository.ResultRepositoryMyBatis;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
         ResultRepositoryMyBatis.class
 })
 @ComponentScan(basePackages="com.aimconsulting.testing")
-@MapperScan("com.aimconsulting.testing.mapper")
+@MapperScan("com.aimconsulting.testing.repository.impl.mybatis.mapper")
 class ResultRepositoryMyBatisTest {
 
     @Autowired

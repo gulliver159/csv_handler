@@ -3,7 +3,7 @@ package com.aimconsulting.testing.controller;
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.dto.ContentDtoRequest;
 import com.aimconsulting.testing.model.Result;
-import com.aimconsulting.testing.repository_interface.ResultWriter;
+import com.aimconsulting.testing.repository.ResultWriter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
