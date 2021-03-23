@@ -1,7 +1,14 @@
 DROP TABLE IF EXISTS results;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name TEXT NOT NULL
+);
 
 CREATE TABLE results (
   id INT AUTO_INCREMENT PRIMARY KEY,
   name TEXT NOT NULL,
-  content TEXT NOT NULL
+  content TEXT NOT NULL,
+  user_id INT
 );

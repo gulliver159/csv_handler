@@ -2,6 +2,7 @@ package com.aimconsulting.testing.repository.mybatis;
 
 import com.aimconsulting.testing.configuration.TestConfiguration;
 import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import com.aimconsulting.testing.repository.impl.mybatis.repository.ResultRepositoryMyBatis;
 import org.junit.jupiter.api.BeforeEach;
@@ -78,6 +79,46 @@ class ResultRepositoryMyBatisTest {
                 () -> assertEquals(new ArrayList<>(), writer.getResult(resultList.get(0).getName())),
                 () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0))
         );
+    }
+
+    @Test
+    void testCreateResultsByUser() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;"));
+        resultList.add(new Result("version", "1;2;"));
+        resultList.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
+
+        User user = new User("Roma");
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+
+        writer.createResultsByUser(resultList);
+
+        assertAll(
+                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
+                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0)),
+                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()).get(0)),
+                () -> assertEquals(resultList, writer.getResultsByUsername(user.getName()))
+        );
+    }
+
+    @Test
+    void testDeleteResultsByUsername() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;3;"));
+        resultList.add(new Result("name", "ричард;жорж;мария;пьер;"));
+
+        User user = new User("Roma");
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+
+        writer.createResults(resultList);
+
+        writer.deleteResultsByUsername(user.getName());
+
+        assertEquals(new ArrayList<>(), writer.getResultsByUsername(user.getName()));
     }
 
 }

@@ -1,8 +1,9 @@
 package com.aimconsulting.testing.repository.mybatis;
 
+import com.aimconsulting.testing.model.Result;
+import com.aimconsulting.testing.model.User;
 import com.aimconsulting.testing.repository.ResultWriter;
 import com.aimconsulting.testing.repository.impl.mybatis.mapper.ResultMapper;
-import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository.impl.mybatis.repository.ResultRepositoryMyBatis;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -45,5 +46,33 @@ class ResultRepositoryMyBatisUnitTest {
     void testDeleteResult() {
         writer.deleteResult("id");
         verify(mapper, times(1)).deleteResult("id");
+    }
+
+    @Test
+    void testCreateResultsByUser() {
+        List<Result> resultList = new ArrayList<>();
+        resultList.add(new Result("id", "0;1;2;"));
+        resultList.add(new Result("version", "1;2;"));
+
+        User user = new User("Roma");
+        for (Result result : resultList) {
+            result.setUser(user);
+        }
+
+        writer.createResultsByUser(resultList);
+
+        verify(mapper, times(1)).createResultsByUser(resultList, user);
+    }
+
+    @Test
+    void testGetResultsByUsername() {
+        writer.getResultsByUsername("Roma");
+        verify(mapper, times(1)).getResultsByUsername("Roma");
+    }
+
+    @Test
+    void testDeleteResultsByUsername() {
+        writer.deleteResultsByUsername("Roma");
+        verify(mapper, times(1)).deleteResultsByUsername("Roma");
     }
 }

@@ -1,4 +1,4 @@
-package com.aimconsulting.testing.repository.impl.jpa;
+package com.aimconsulting.testing.repository.impl.jpa.repository;
 
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.repository.ResultWriter;
@@ -32,5 +32,17 @@ public class ResultRepositoryJPA implements ResultWriter {
 
     public List<Result> getResult(String name) {
         return resultCrudRepository.findAllByName(name);
+    }
+
+    public void createResultsByUser(List<Result> resultList) {
+        resultCrudRepository.saveAll(resultList);
+    }
+
+    public List<Result> getResultsByUsername(String username) {
+        return resultCrudRepository.findAllByUserName(username);
+    }
+
+    public void deleteResultsByUsername(String username) {
+        resultCrudRepository.deleteByUserName(username);
     }
 }

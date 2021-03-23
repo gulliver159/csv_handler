@@ -13,12 +13,23 @@ public class Result {
     private String name;
     private String content;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
+    private User user;
+
     public Result(String name, String content) {
         this.name = name;
         this.content = content;
     }
-
     public Result() {
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {
@@ -42,19 +53,21 @@ public class Result {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Result result = (Result) o;
-        return Objects.equals(name, result.name) && Objects.equals(content, result.content);
+        return Objects.equals(name, result.name) && Objects.equals(content, result.content) && Objects.equals(user, result.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, content);
+        return Objects.hash(id, name, content, user);
     }
 
     @Override
     public String toString() {
         return "Result{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
+                ", user=" + user +
                 '}';
     }
 }
