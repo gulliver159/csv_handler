@@ -34,14 +34,16 @@ public class ResultRepositoryMyBatis implements ResultWriter {
     }
 
     public void createResultsByUser(List<Result> resultList) {
-
+        User user = resultList.get(0).getUser();
+        resultMapper.createUser(user);
+        resultMapper.createResultsByUser(resultList, user);
     }
 
     public List<Result> getResultsByUsername(String username) {
-        return null;
+        return resultMapper.getResultsByUsername(username);
     }
 
     public void deleteByUserName(String username) {
-
+        resultMapper.deleteResultsByUsername(username);
     }
 }

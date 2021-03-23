@@ -64,8 +64,10 @@ public class Result {
     @Override
     public String toString() {
         return "Result{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", content='" + content + '\'' +
+                ", user=" + user +
                 '}';
     }
 }
