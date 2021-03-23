@@ -18,8 +18,8 @@ public class Controller {
     }
 
     @PostMapping(value = "/csv", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultDtoResponse handleCSV(@RequestBody ContentDtoRequest request) {
-        return service.parse(request);
+        public ResultDtoResponse createResults(@RequestBody ContentDtoRequest request) {
+        return service.createResults(request);
     }
 
     @GetMapping(value = "/csv/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,12 +38,12 @@ public class Controller {
     }
 
     @PostMapping(value = "/csv/user", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultDtoResponse createByUser(@RequestBody CreateByUserDtoRequest request) {
-        return service.createByUser(request);
+    public ResultDtoResponse createResultsByUser(@RequestBody CreateByUserDtoRequest request) {
+        return service.createResultsByUser(request);
     }
 
     @GetMapping(value = "/csv/user/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultDtoResponse getResultByUser(@PathVariable("username") String username) {
+    public ResultDtoResponse getResultsByUser(@PathVariable("username") String username) {
         return service.getResultsByUser(username);
     }
 

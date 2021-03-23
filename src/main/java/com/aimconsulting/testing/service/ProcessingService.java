@@ -21,7 +21,7 @@ public class ProcessingService {
         this.resultWriter = resultWriter;
     }
 
-    public ResultDtoResponse parse(ContentDtoRequest request) {
+    public ResultDtoResponse createResults(ContentDtoRequest request) {
         String content = request.getContent();
         List<Result> resultList =  parser.parse(content);
 
@@ -48,7 +48,7 @@ public class ProcessingService {
         resultWriter.deleteAll();
     }
 
-    public ResultDtoResponse createByUser(CreateByUserDtoRequest request) {
+    public ResultDtoResponse createResultsByUser(CreateByUserDtoRequest request) {
         String content = request.getContent();
         List<Result> resultList =  parser.parse(content);
         User user = request.getUser();
