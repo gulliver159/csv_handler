@@ -42,4 +42,8 @@ public class ResultRepositoryJPA implements ResultWriter {
     public List<Result> getResultsByUsername(String username) {
         return resultCrudRepository.findAllByUserName(username);
     }
+
+    public void deleteByUserName(String username) {
+        resultCrudRepository.deleteByUserName(username);
+    }
 }

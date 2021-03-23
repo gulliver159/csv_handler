@@ -40,4 +40,8 @@ public class ResultRepositoryMyBatis implements ResultWriter {
     public List<Result> getResultsByUsername(String username) {
         return null;
     }
+
+    public void deleteByUserName(String username) {
+
+    }
 }

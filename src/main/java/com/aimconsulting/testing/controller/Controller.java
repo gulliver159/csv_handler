@@ -46,4 +46,9 @@ public class Controller {
     public ResultDtoResponse getResultByUser(@PathVariable("username") String username) {
         return service.getResultsByUser(username);
     }
+
+    @DeleteMapping(value = "/csv/user/{username}")
+    public void deleteResultsByUsername(@PathVariable("username") String username) {
+        service.deleteResultsByUsername(username);
+    }
 }

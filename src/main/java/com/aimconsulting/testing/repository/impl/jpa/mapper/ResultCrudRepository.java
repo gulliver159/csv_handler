@@ -12,4 +12,6 @@ public interface ResultCrudRepository extends CrudRepository<Result, Integer> {
     List<Result> findAllByUserName(String name);
     @Transactional
     void deleteByName(String name);
+    @Transactional
+    void deleteByUserName(String name);
 }

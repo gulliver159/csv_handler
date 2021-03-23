@@ -68,4 +68,8 @@ public class ProcessingService {
         }
         return new ResultDtoResponse(results);
     }
+
+    public void deleteResultsByUsername(String username) {
+        resultWriter.deleteByUserName(username);
+    }
 }

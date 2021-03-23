@@ -12,4 +12,5 @@ public interface ResultWriter {
     List<Result> getResult(String name);
     void createResultsByUser(List<Result> resultList);
     List<Result> getResultsByUsername(String username);
+    void deleteByUserName(String username);
 }
