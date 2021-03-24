@@ -70,23 +70,35 @@ class ResultRepositoryJPATest {
 
     @Test
     void testCreateResultsByUser() {
-        List<Result> resultList = new ArrayList<>();
-        resultList.add(new Result("id", "0;1;2;"));
-        resultList.add(new Result("version", "1;2;"));
-        resultList.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
+        List<Result> expectedAnswer = new ArrayList<>();
+        expectedAnswer.add(new Result("id", "0;1;2;"));
+        expectedAnswer.add(new Result("version", "1;2;"));
+        expectedAnswer.add(new Result("path", "/hello/уточка;/hello/лошадка;/hello/собачка;"));
 
         User user = new User("Roma");
-        for (Result result : resultList) {
+        for (Result result : expectedAnswer) {
             result.setUser(user);
         }
 
-        writer.createResultsByUser(resultList);
+        writer.createResultsByUser(expectedAnswer);
+
+        List<Result> actualAnswerByResultName = new ArrayList<>();
+        actualAnswerByResultName.add(writer.getResult(expectedAnswer.get(0).getName()).get(0));
+        actualAnswerByResultName.add(writer.getResult(expectedAnswer.get(1).getName()).get(0));
+        actualAnswerByResultName.add(writer.getResult(expectedAnswer.get(2).getName()).get(0));
+
+        for (Result result : actualAnswerByResultName) {
+            result.getUser().setResults(null);
+        }
+
+        List<Result> actualAnswerByUsername = writer.getResultsByUsername(user.getName());
+        for (Result result : actualAnswerByUsername) {
+            result.getUser().setResults(null);
+        }
 
         assertAll(
-                () -> assertEquals(resultList.get(0), writer.getResult(resultList.get(0).getName()).get(0)),
-                () -> assertEquals(resultList.get(1), writer.getResult(resultList.get(1).getName()).get(0)),
-                () -> assertEquals(resultList.get(2), writer.getResult(resultList.get(2).getName()).get(0)),
-                () -> assertEquals(resultList, writer.getResultsByUsername(user.getName()))
+                () -> assertEquals(expectedAnswer, actualAnswerByResultName),
+                () -> assertEquals(expectedAnswer, actualAnswerByUsername)
         );
     }
 
