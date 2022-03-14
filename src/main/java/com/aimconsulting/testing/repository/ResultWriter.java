@@ -9,4 +9,7 @@ public interface ResultWriter {
     void deleteResult(String name);
     void createResults(List<Result> resultList);
     List<Result> getResult(String name);
+    void createResultsByUser(List<Result> resultList);
+    List<Result> getResultsByUsername(String username);
+    void deleteResultsByUsername(String username);
 }

@@ -46,4 +46,16 @@ public class ResultRepositoryJDBC implements ResultWriter {
         return template.query("select name, content from results where name = ?", new Object[]{name},
                 (rs, rowNum) -> new Result(rs.getString("name"), rs.getString("content")));
     }
+
+    public void createResultsByUser(List<Result> resultList) {
+
+    }
+
+    public List<Result> getResultsByUsername(String username) {
+        return null;
+    }
+
+    public void deleteResultsByUsername(String username) {
+
+    }
 }

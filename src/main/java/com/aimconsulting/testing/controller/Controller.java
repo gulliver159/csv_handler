@@ -1,6 +1,7 @@
 package com.aimconsulting.testing.controller;
 
 import com.aimconsulting.testing.dto.ContentDtoRequest;
+import com.aimconsulting.testing.dto.CreateByUserDtoRequest;
 import com.aimconsulting.testing.dto.ResultDtoResponse;
 import com.aimconsulting.testing.model.Result;
 import com.aimconsulting.testing.service.ProcessingService;
@@ -16,9 +17,9 @@ public class Controller {
         this.service = service;
     }
 
-    @PostMapping(value = "/csv/handling", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultDtoResponse handleCSV(@RequestBody ContentDtoRequest request) {
-        return service.parse(request);
+    @PostMapping(value = "/csv", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+        public ResultDtoResponse createResults(@RequestBody ContentDtoRequest request) {
+        return service.createResults(request);
     }
 
     @GetMapping(value = "/csv/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,5 +35,20 @@ public class Controller {
     @PostMapping(value = "/csv/clear")
     public void clearStateServer() {
         service.deleteAll();
+    }
+
+    @PostMapping(value = "/csv/user", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultDtoResponse createResultsByUser(@RequestBody CreateByUserDtoRequest request) {
+        return service.createResultsByUser(request);
+    }
+
+    @GetMapping(value = "/csv/user/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultDtoResponse getResultsByUser(@PathVariable("username") String username) {
+        return service.getResultsByUser(username);
+    }
+
+    @DeleteMapping(value = "/csv/user/{username}")
+    public void deleteResultsByUsername(@PathVariable("username") String username) {
+        service.deleteResultsByUsername(username);
     }
 }
